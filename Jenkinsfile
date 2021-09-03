@@ -22,7 +22,7 @@ pipeline {
         stage('Build docker image') {
            steps {
                script {         
-                 def customImage = docker.build('omeshwar/omjyokan', "./docker")
+                 def customImage = docker.build('omeshwar/test', "./docker")
                  docker.withRegistry('https://registry.hub.docker.com', 'mydocker-reg') {
                  customImage.push("${env.BUILD_NUMBER}")
                  }                     
