@@ -10,7 +10,7 @@ pipeline {
           git 'https://github.com/omeshwarkandari/dockerimage.git'
         }
       }
-      stage ('clone the repo') {
+      stage ('build image') {
           app = docker.build("omeshwarkandari/dockerimage")
       }
   }
