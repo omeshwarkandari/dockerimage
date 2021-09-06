@@ -5,15 +5,15 @@ pipeline {
       jdk 'java 8'
     }         
   stages {       
-      stage ('clone the repo') {
-        steps {
+    stage ('clone the repo') {
+      steps {
           git 'https://github.com/omeshwarkandari/dockerimage.git'
-        }
       }
-      stage ('build image') {
-        steps }  
+    }
+    stage ('build image') {
+      steps { 
           app = docker.build("omeshwarkandari/dockerimage")
-        }
       }
+    }
   }
 }
