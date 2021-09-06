@@ -1,4 +1,3 @@
-FROM ubuntu:latest
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install -y apache2
-CMD ["apachectl", "-D", "FOREGROUND"]
+FROM python:3.7-alpine
+Copy hello_there.py /
+CMD [ "python", "hello_there.py"]
