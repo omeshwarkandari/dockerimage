@@ -30,15 +30,18 @@ stage('Copy Artifact'):
     which means the action is like " copy *.jar filr to the /docker/Dockerfile " and this is accomplished by the configuration of the "Dockerfile"
  
 Dockerfile:
+FROM openjdk:11.0.5-jdk  (run a java image being a java program which also helps in removing a layer of "Install Java" in the image."
+ADD *.jar app.jar  (ADD command helps to add copied *.jar artifacts on th runtime in the docker dir which is otherwise empty)
+ENTRYPOINT java -jar app.jar  (Entrypoint is executing the program java for the created application app.jar when container will spinoff from our image)
     
- 
-    
-         
-        stage('Build docker image') {
-           steps {
-               script {         
-                 def customImage = docker.build('omeshwar/petclinic', "./docker")
-                 docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+Docker Image Build and Push: It has two parts docker build & push image to the dockerhub.
+
+Build the Image: "docker build -t image-name ." by using the pipeline syntax "def customimage" that we are want to build from a successful buil number.
+< docker.build('<docker-hub reg name/ image name>', "./<dir-name in the jenkinsfile>")>
+  e.g. docker-hub registry: "omeshwar" and dir-name: "docker"
+
+Push to the Dokerhub registry: We are using pipeline syntax 
+  docker.withRegistry('https://registry.hub.docker.com', 'ID of the Credential in the jenkis') {
                  customImage.push("${env.BUILD_NUMBER}")
                  }                  
-
+env.BUILD_NUMBER: This syntax helps to push the successful image with the build number as tag.
