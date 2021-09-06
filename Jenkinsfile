@@ -12,7 +12,7 @@ pipeline {
     }
     stage ('build image') {
       steps { 
-        sript { app = docker.build("omeshwarkandari/dockerimage")
+        sh 'docker build -t hello_world .'
         }
       }
     }
