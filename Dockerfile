@@ -1,3 +1,4 @@
-FROM openjdk:11.0.5-jdk
-ADD *.jar app.jar
-ENTRYPOINT java -jar app.jar
+FROM ubuntu:latest
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y apache2
+CMD ["apachectl", "-D", "FOREGROUND"]
