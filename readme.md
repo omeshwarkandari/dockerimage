@@ -15,6 +15,7 @@ $ chown -R jenkins:jenkins Dockerfile
 $ chmod 666 /var/run/docker.sock
 reboot the server
 
+
 Authenticate Jenkins to push image to Dockerhub:
 This is achieved by adding Dockerhub User credentials in the jenkins Global Credentials menu.
 1. Create a token as password in the Dockerhub Registry:
@@ -22,6 +23,7 @@ Login to Docker-hub --- right click on Reg. name "omeshwar" -- Account Settings 
 2. Go to Jenkins Credential -- add Credential -- (Kind: username & passwd, username: <Dokcerhub reg name> e.g. "omeshwar", password: <token value>, ID: Any name e.g "dockerhub"
 3. Use this ID in the jenkinsfile.
   
+
 jenkinsfile:
 stage('Copy Artifact'): 
 "pwd": means the present working directory where artifact is created by the jenkins job e.g. a pipeline job named as "jenkins-docker-integration"
@@ -29,17 +31,21 @@ stage('Copy Artifact'):
 "cp -r target/*.jar docker": The artifact a jar file inside the pwd is copied to the "dockerfile" inside the directory "docker" we have created in the root of the github repo,
     which means the action is like " copy *.jar filr to the /docker/Dockerfile " and this is accomplished by the configuration of the "Dockerfile"
  
+
 Dockerfile:
 FROM openjdk:11.0.5-jdk  (run a java image being a java program which also helps in removing a layer of "Install Java" in the image."
 ADD *.jar app.jar  (ADD command helps to add copied *.jar artifacts on th runtime in the docker dir which is otherwise empty)
 ENTRYPOINT java -jar app.jar  (Entrypoint is executing the program java for the created application app.jar when container will spinoff from our image)
     
-Docker Image Build and Push: It has two parts docker build & push image to the dockerhub.
 
-Build the Image: "docker build -t image-name ." by using the pipeline syntax "def customimage" that we are want to build from a successful buil number.
-< docker.build('<docker-hub reg name/ image name>', "./<dir-name in the jenkinsfile>")>
-  e.g. docker-hub registry: "omeshwar" and dir-name: "docker"
+Docker Image Build and Push: It has two parts first build dockerimage & then push the image to the dockerhub.
 
+Build the Image: 
+  <docker.build('<docker-hub reg name/ image name>', "./<Dokcerfile location in the jenkinsfile>"> is a jenkins declarative pipeline syntax for the docker build command
+    "docker build -t image-name ." 
+  "def customimage": A custom image that we want to build using a successful buil number.
+  "docker-hub reg name/ image name": we are using docker-hub registry as "omeshwar" my github registry and image name as "petclinic" just a relevent name to the application. 
+  "./<Dokcerfile location in the jenkinsfile>": The relevant path hosting the Dockerfile e.g. docker directory (./docker/Dokcerfile) and it should be alwyas in the root "." direcrory of Github repo where SRC is present.
 Push to the Dokerhub registry: We are using pipeline syntax 
   docker.withRegistry('https://registry.hub.docker.com', 'ID of the Credential in the jenkis') {
                  customImage.push("${env.BUILD_NUMBER}")
