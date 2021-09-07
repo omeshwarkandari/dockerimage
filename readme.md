@@ -40,12 +40,14 @@ ENTRYPOINT java -jar app.jar  (Entrypoint is executing the program java for the 
 
 Docker Image Build and Push: It has two parts first build dockerimage & then push the image to the dockerhub.
 
-Build the Image: 
+Build the Image: "def customImage = docker.build('omeshwar/petclinic', "./docker")"
   <docker.build('<docker-hub reg name/ image name>', "./<Dokcerfile location in the jenkinsfile>"> is a jenkins declarative pipeline syntax for the docker build command
     "docker build -t image-name ." 
   "def customimage": A custom image that we want to build using a successful buil number.
   "docker-hub reg name/ image name": we are using docker-hub registry as "omeshwar" my github registry and image name as "petclinic" just a relevent name to the application. 
-  "./<Dokcerfile location in the jenkinsfile>": The relevant path hosting the Dockerfile e.g. docker directory (./docker/Dokcerfile) and it should be alwyas in the root "." direcrory of Github repo where SRC is present.
+  "./<Dokcerfile location in the jenkinsfile>": The relevant path hosting the Dockerfile e.g. docker directory (./docker/Dokcerfile) and it should be alwyas in the root "."         direcrory of Github repo where SRC the source code is present.
+    
+    
 Push to the Dokerhub registry: We are using pipeline syntax 
   docker.withRegistry('https://registry.hub.docker.com', 'ID of the Credential in the jenkis') {
                  customImage.push("${env.BUILD_NUMBER}")
