@@ -48,8 +48,6 @@ Build the Image: "def customImage = docker.build('omeshwar/petclinic', "./docker
   "./<Dokcerfile location in the jenkinsfile>": The relevant path hosting the Dockerfile e.g. docker directory (./docker/Dokcerfile) and it should be alwyas in the root "."         direcrory of Github repo where SRC the source code is present.
     
     
-Push to the Dokerhub registry: We are using pipeline syntax 
-  docker.withRegistry('https://registry.hub.docker.com', 'ID of the Credential in the jenkis') {
-                 customImage.push("${env.BUILD_NUMBER}")
-                 }                  
-env.BUILD_NUMBER: This syntax helps to push the successful image with the build number as tag.
+Push to the Dokerhub registry: docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {customImage.push("${env.BUILD_NUMBER}")}
+  docker.withRegistry('https://registry.hub.docker.com', 'ID of the Credential created in the jenkins'), this will help to connect to the dockerhub or any artifact location         integrated with the jenkins.
+  customImage.push("${env.BUILD_NUMBER}"): This syntax helps to push the custom image to the docker reg/ artifactory based on the successful build number as the tag.
