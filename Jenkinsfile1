@@ -3,17 +3,31 @@ pipeline {
     tools {
       maven 'maven 3'
       jdk 'java 8'
-    }         
-  stages {       
-    stage ('clone the repo') {
-      steps {
-          git 'https://github.com/omeshwarkandari/dockerimage.git'
-      }
     }
-    stage ('build image') {
-      steps { 
-        sh 'docker build -t testimage .'
-      }
+    stages {      
+        stage('Build maven ') {
+            steps { 
+                    sh 'pwd'      
+                    sh 'mvn  clean install package'
+            }
+        }
+        
+        stage('Copy Artifact') {
+           steps { 
+                   sh 'pwd'
+		   sh 'cp -r target/*.jar docker'
+           }
+        }
+         
+        stage('Build docker image') {
+           steps {
+               script {         
+                 def customImage = docker.build('omeshwar/petclinic', "./docker")
+                 docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                 customImage.push("${env.BUILD_NUMBER}")
+                 }                     
+               }
+           }
+	     }
     }
-  }
 }
