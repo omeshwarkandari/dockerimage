@@ -33,13 +33,35 @@ $ usermod -aG docker jenkins
 $ grep docker /etc/group (verify jenkins is added to the group docker)
 or
 $ groups jenkins ( groups $USER)
-Delete users from a group: usermod -G <group-name> <user-name>  or   gpasswd -d  <user-name> <group-name>
-$ gpasswd -d ansadmin docker
+$ grep docker /etc/group
+dockerroot:x:993:
+docker:x:1002:jenkins
+
 Chaneg acess mode for docker socket:
 $ chmod 666 /var/run/docker.sock
 Reboot the server:
 $ reboot
 
-Run the pipeline job and it will build the docker image as well as push to the docker hub registry.
+Run the pipeline job and it will build the docker image as well as push to the docker hub registry with a sample shown below;
+
++ docker build -t omeshwar/petclinic-v1 ./docker
+Sending build context to Docker daemon 47.69 MB
+.
+Successfully built a3a1a538e02c
+.
+$ docker login -u omeshwar -p ******** https://registry.hub.docker.com
+Login Succeeded
+.
++ docker tag omeshwar/petclinic-v1 registry.hub.docker.com/omeshwar/petclinic-v1:11
+.
++ docker push registry.hub.docker.com/omeshwar/petclinic-v1:11
+The push refers to a repository [registry.hub.docker.com/omeshwar/petclinic-v1]
+.
+3aedbb938d77: Pushed
+11: digest: sha256:1967b2e8f2daf874ef93e7ccd2eb5476e6c26b2f3d0e4dfce8791d255433b642 size: 2007
+Finished: SUCCESS
 
 
+Note:
+Delete users from a group: usermod -G <group-name> <user-name>  or   gpasswd -d  <user-name> <group-name>
+$ gpasswd -d ansadmin docker
