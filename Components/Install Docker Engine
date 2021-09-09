@@ -28,6 +28,7 @@ $ grep docker /etc/group  --->  docker:x:990:jenkins  ( user jenkins also added 
 $ su - jenkins ( login as jenkins to verify)
 $ docker ps  --->  CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 $ chmod 666 /var/run/docker.sock  (Change the permission to make the docker executable) or chmod 777 /var/run/docker.sock
+$ visudo (provide sudo access to user "jenkins"   by addning < jenkins   ALL=(ALL)   NOPASSWD: ALL > below user "root".
 $ reboot (Reboot the jenkins server)
 
 Add Jenkins-plugins: Docker, Docker Pipeline & Docker Pipeline
