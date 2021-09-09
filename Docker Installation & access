@@ -22,3 +22,4 @@ Account Setting --- Security -- Gnerate new access token -- Copy the token -- Pa
 
 Jenkins: Add new Credentials under Global Credentials menu.
 Add Credentials -- Enter (username: <name of the dockerhub registery e.g. omeshwar, password: <access token value>, ID: <any name>) and ok
+This ID is used in the jenkins file.
