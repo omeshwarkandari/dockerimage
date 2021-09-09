@@ -1,0 +1,25 @@
+$ yum install -y docker
+$ docker --version
+$ service docker status ( Docker service not runing)
+$ service docker start
+$ chkconfig docker on
+$ groupadd docker
+$ grep docker /etc/group  ---> docker:x:990:
+$ usermod -aG docker jenkins
+$ grep docker /etc/group  --->  docker:x:990:jenkins  ( user jenkins also added to the docker group to create image/conatiners)
+$ su - jenkins ( login as jenkins to verify)
+$ docker ps  --->  CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+$ chmod 666 /var/run/docker.sock  (Change the permission to make the docker executable)
+$ reboot (Reboot the jenkins server)
+
+Add Jenkins-plugins: Docker, Docker Pipeline & Docker Pipeline
+
+Integrate Jenkins Server with Docker-Hub:
+
+Docker-hub: 
+Login to docker-hub registry e.g. my registry "omeshwar" and Create an access token
+Account Setting --- Security -- Gnerate new access token -- Copy the token -- Paste is as password in the Add Credential inside Jenkins Credential Configuation
+
+Jenkins: Add new Credentials under Global Credentials menu.
+Add Credentials -- Enter (username: <name of the dockerhub registery e.g. omeshwar, password: <access token value>, ID: <any name>) and ok
+This ID is used in the jenkins file.
