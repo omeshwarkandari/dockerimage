@@ -1,4 +1,10 @@
-Set-up Jenkins Server
+CICD Declarative Pipeline by Jenkins to create a docker image from the artifact and push it to the Docker-hub registry.
+Required Components:
+
+1. Jenkins Server:
+- Create an Amazon EC2 t3.small to avoid low memory issue on docker image creation
+- Build Jenkins server using the Ansible Playbook 
+
 Add plug-in "Dokcer Pipeline"
 Additonal Configuration:
 Install Docker:
