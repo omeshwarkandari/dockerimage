@@ -9,3 +9,5 @@ $ usermod -aG docker jenkins
 $ grep docker /etc/group  --->  docker:x:990:jenkins  ( user jenkins also added to the docker group to create image/conatiners)
 $ su - jenkins ( login as jenkins to verify)
 $ docker ps  --->  CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+$ chmod 666 /var/run/docker.sock  (Change the permission to make the docker executable)
+$ reboot (Reboot the jenkins server)
