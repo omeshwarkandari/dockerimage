@@ -1,3 +1,5 @@
+Install Docker and provide access to user "jenkins" to create docker image using docker runtime.
+
 $ yum install -y docker
 $ docker --version
 $ service docker status ( Docker service not runing)
