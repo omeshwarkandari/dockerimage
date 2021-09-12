@@ -7,13 +7,16 @@ $ service docker status ( Docker service not runing)
 $ service docker start
 $ chkconfig docker on
 
-Assign shell to jenkins user:
+Enable sudo access and asso=ign shell to the user 'jenkins':
 User 'jenkins" is created by default when we install Jenkins Server
+Sudo access:
+# visduo (add jenkins under root with no password priviledge)
+Shell access:
 # cat /etc/passwd  --->  jenkins:x:994:992:Jenkins Automation Server:/var/lib/jenkins:/bin/false
 We can not login with user jenkins because /false 
 [root@jenkins ~]# su - jenkins  --> Last login: Thu Sep  9 06:58:26 UTC 2021 on pts/0
 [root@jenkins ~]# pwd   --->  /root
-# vi /etc/passwd and chnage the false to bash to enable bash shell 
+# vi /etc/passwd and change the false to bash to enable bash shell 
 # cat /etc/passwd  --->    jenkins:x:994:992:Jenkins Automation Server:/var/lib/jenkins:/bin/bash
 [root@jenkins ~]# su - jenkins
 Last login: Thu Sep  9 09:28:03 UTC 2021 on pts/0
