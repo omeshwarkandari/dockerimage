@@ -1,5 +1,8 @@
-CI job: Declarative Pipeline to create a docker image from Git-hub SCM using Jenkins and pushing it to the Docker-hub registry.
-Required Components: SCM, Jenkis & Artifact Repository.
+Objective: CI Pipeline to Clone, Build Image using and Copy into the Artifactory.
+In our example we are using using the declarative Pipeline where Git-hub is our SCM, Jenkins is used to build the docker image and Docker-hub is the artifactory.
+
+Create the Setup:
+
 1. SCM - Github
 
 2. Jenkins Server: Refer to "jenkins_setup.yml"
