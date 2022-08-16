@@ -1,0 +1,21 @@
+kind: pipeline
+type: kubernetes
+name: default
+
+steps:
+
+- name: build
+  image: openjdk:11.0.5-jdk
+  commands:
+    - "go build -o ./myapp"
+
+- name: publish  
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    repo: omeshwar/harness-training
+    auto_tag: true
+    auto_tag_suffix: drone-build
